@@ -5,8 +5,8 @@ import com.appfactory.cognitivefoursquare.domain.entity.VenueEntity
 import io.reactivex.Single
 
 class GetVenusUseCase{
-    fun buildUseCase():Single<List<VenueEntity>>{
+    fun buildUseCase(longLat:String):Single<List<VenueEntity>>{
         val venusRepo = VenuesRepositoryImp()
-        return venusRepo.getVenues()
+        return venusRepo.getVenues(longLat)
     }
 }

@@ -9,16 +9,21 @@ import io.reactivex.Observable
 import io.reactivex.Single
 
 class VenuesRepositoryImp : VenuesRepository {
-    override fun getVenues(): Single<List<VenueEntity>> {
+    override fun getVenues(longLat:String): Single<List<VenueEntity>> {
         val venusRs = VenusRemoteDS()
-        return venusRs.getVenues()
-            .map { venusRes -> venusRes.response.groups.first() }
-            .flatMapObservable { gp -> Observable.fromIterable(gp.items
-                .map { item -> item.venue.toEntity("") }) }.toList()
-
+        return venusRs.getVenues(longLat= longLat)
+            .map { venusRs -> venusRs.response.groups.first() }
+            .flatMapObservable { group ->
+                Observable.fromIterable(group.items.map { it.venue.toEntity("") })
+            }.toList()
 //            .flatMapSingle { item ->
 //                venusRs.getVenuesPhoto(item.venue.id)
-//                    .map { venusImagRs -> item.venue.toEntity(buildImageURL(venusImagRs)) }
+//                    .map {
+//                        item.venue.toEntity(buildImageURL(it))
+//                    }
+//                    .onErrorReturn {
+//                        item.venue.toEntity("")
+//                    }
 //            }.toList()
     }
 

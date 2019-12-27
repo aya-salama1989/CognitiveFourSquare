@@ -8,8 +8,8 @@
         android:id="@+id/ivVenue"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_width="100dp"
-        android:layout_height="100dp"/>
+        android:layout_width="90dp"
+        android:layout_height="90dp"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvVenueName"
@@ -17,6 +17,8 @@
         app:layout_constraintStart_toEndOf="@id/ivVenue"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="0dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
         android:layout_height="wrap_content"/>
 
     <androidx.appcompat.widget.AppCompatTextView

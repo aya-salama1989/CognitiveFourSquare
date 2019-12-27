@@ -8,23 +8,23 @@ import io.reactivex.Single
 
 class VenusRemoteDS {
 
-    fun getVenues(cityName: String = "cairo", longLat: String=""): Single<VenuesResponse> {
+    fun getVenues(cityName: String = "", longLat: String): Single<VenuesResponse> {
         val retrofitBuilder = RetrofitBuilder()
-        val res = retrofitBuilder
-            .getService(
+        return retrofitBuilder
+            .getVenues(
                 "v2/venues/explore?" +
                         getLongLat(longLat) +
                         getCity(cityName) +
                         "client_id=$CLIENT_ID&client_secret=$CLIENT_SECRET&v=$API_RELEASE_DATE"
             )
-        return res as Single<VenuesResponse>
+
     }
 
     fun getVenuesPhoto(venueId: String): Single<VenueImageResponse> {
         val retrofitBuilder = RetrofitBuilder()
-        val res = retrofitBuilder
-            .getService("v2/venues/${venueId}/photos?client_id=$CLIENT_ID&client_secret=$CLIENT_SECRET&v=$API_RELEASE_DATE")
-        return res as Single<VenueImageResponse>
+        return retrofitBuilder
+            .getVenuesImage("v2/venues/${venueId}/photos?client_id=$CLIENT_ID" +
+                    "&client_secret=$CLIENT_SECRET&v=$API_RELEASE_DATE")
     }
 
     private fun getLongLat(longLat: String): String {

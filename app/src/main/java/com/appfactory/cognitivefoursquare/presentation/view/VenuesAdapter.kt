@@ -34,7 +34,9 @@ class VenuesAdapter : RecyclerView.Adapter<VenuesAdapter.VenueViewHolder>() {
 
     inner class VenueViewHolder(private val rootView: View) : RecyclerView.ViewHolder(rootView) {
         fun setVenueData(venueEntity: VenueEntity) {
-            Picasso.get().load(venueEntity.image).into(rootView.ivVenue)
+            if(!venueEntity.image.isNullOrEmpty()){
+                Picasso.get().load(venueEntity.image).placeholder(R.drawable.ic_launcher_background).into(rootView.ivVenue)
+            }
             rootView.tvVenueName.text = venueEntity.name
             rootView.tvVenueAddress.text = venueEntity.address
         }
