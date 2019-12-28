@@ -63,6 +63,7 @@ class LocationLiveData(context: Context) : LiveData<LocationModel>() {
 
     fun isRealTime(isRealtime:Boolean): LocationLiveData {
         this.isRealtime=isRealtime
+        onActive()
         return this@LocationLiveData
     }
 
