@@ -1,4 +1,4 @@
-package com.appfactory.Utils
+package com.appfactory.utils
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
@@ -7,22 +7,22 @@ import android.content.SharedPreferences
 
 class SharedPreferencesHelper {
 
-    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
 
+
     fun isRealtime(context: Context, currency: Boolean) {
-        sharedPreferences =
-            context.getSharedPreferences(UPDATE_TYPE, MODE_PRIVATE)
-        editor = sharedPreferences.edit()
+        editor = getCognitiveSharedPrefrences(context).edit()
         editor.putBoolean(REALTIME_UPDATE, currency)
         editor.commit()
     }
 
     fun getIsRealtime(context: Context): Boolean {
-        sharedPreferences =
-            context.getSharedPreferences(UPDATE_TYPE, MODE_PRIVATE)
-        return sharedPreferences.getBoolean(REALTIME_UPDATE, true)
+        return getCognitiveSharedPrefrences(context).getBoolean(REALTIME_UPDATE, true)
     }
+}
+
+fun getCognitiveSharedPrefrences(context: Context): SharedPreferences {
+    return  context.getSharedPreferences(UPDATE_TYPE, MODE_PRIVATE)
 }
 
 const val UPDATE_TYPE = "update_type"

@@ -4,7 +4,6 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.appfactory.cognitivefoursquare.domain.entity.VenueEntity
 import com.appfactory.cognitivefoursquare.domain.interactor.GetVenusUseCase
 import com.appfactory.cognitivefoursquare.presentation.model.LocationLiveData
@@ -33,6 +32,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     }
 
-    fun getLocationData()= locationData
+
+
+    fun getLocationData(isRealtime:Boolean)= locationData.isRealTime(isRealtime)
+
 
 }

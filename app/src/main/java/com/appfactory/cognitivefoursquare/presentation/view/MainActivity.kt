@@ -12,8 +12,9 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.appfactory.Utils.GpsUtils
-import com.appfactory.Utils.SharedPreferencesHelper
+import com.appfactory.utils.GpsUtils
+import com.appfactory.utils.SharedPreferencesHelper
+import com.appfactory.utils.getCognitiveSharedPrefrences
 import com.appfactory.cognitivefoursquare.R
 import com.appfactory.cognitivefoursquare.domain.entity.VenueEntity
 import com.appfactory.cognitivefoursquare.presentation.model.LocationModel
@@ -65,9 +66,13 @@ class MainActivity : AppCompatActivity() {
                 sharedPreferencesHelper.isRealtime(this, true)
             } else {
                 sharedPreferencesHelper.isRealtime(this, false)
-
             }
         }
+
+        getCognitiveSharedPrefrences(this)
+            .registerOnSharedPreferenceChangeListener { _, _ ->
+                startLocationUpdate()
+            }
     }
 
 
@@ -137,9 +142,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startLocationUpdate() {
-        viewModel.getLocationData().observe(this, Observer {
-            getUpdatedVenues(it)
-        })
+        viewModel.getLocationData(sharedPreferencesHelper.getIsRealtime(this))
+            .observe(this, Observer {
+                getUpdatedVenues(it)
+            })
     }
 
     private fun isPermissionsGranted() =

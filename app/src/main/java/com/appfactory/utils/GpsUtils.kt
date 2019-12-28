@@ -1,4 +1,4 @@
-package com.appfactory.Utils
+package com.appfactory.utils
 
 import android.app.Activity
 import android.content.ContentValues.TAG

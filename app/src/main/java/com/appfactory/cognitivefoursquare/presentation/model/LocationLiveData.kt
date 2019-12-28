@@ -31,10 +31,9 @@ class LocationLiveData(context: Context) : LiveData<LocationModel>() {
                 }
             }
 
-        if (isRealtime) {
+        if (isRealtime){
             startLocationUpdates()
         }
-
     }
 
     @SuppressLint("MissingPermission")
@@ -62,10 +61,12 @@ class LocationLiveData(context: Context) : LiveData<LocationModel>() {
         )
     }
 
-
-    fun isRealtime(isRealtime:Boolean){
-        this.isRealtime = isRealtime
+    fun isRealTime(isRealtime:Boolean): LocationLiveData {
+        this.isRealtime=isRealtime
+        return this@LocationLiveData
     }
+
+
 
     companion object {
         val locationRequest: LocationRequest = LocationRequest.create().apply {
