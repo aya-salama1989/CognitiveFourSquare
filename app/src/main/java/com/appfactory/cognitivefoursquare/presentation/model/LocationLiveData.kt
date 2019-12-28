@@ -13,6 +13,8 @@ class LocationLiveData(context: Context) : LiveData<LocationModel>() {
 
     private var fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
+    private var isRealtime = true
+
     override fun onInactive() {
         super.onInactive()
         fusedLocationClient.removeLocationUpdates(locationCallback)
@@ -28,7 +30,11 @@ class LocationLiveData(context: Context) : LiveData<LocationModel>() {
                     setLocationData(it)
                 }
             }
-        startLocationUpdates()
+
+        if (isRealtime) {
+            startLocationUpdates()
+        }
+
     }
 
     @SuppressLint("MissingPermission")
@@ -54,6 +60,11 @@ class LocationLiveData(context: Context) : LiveData<LocationModel>() {
             longitude = location.longitude,
             latitude = location.latitude
         )
+    }
+
+
+    fun isRealtime(isRealtime:Boolean){
+        this.isRealtime = isRealtime
     }
 
     companion object {

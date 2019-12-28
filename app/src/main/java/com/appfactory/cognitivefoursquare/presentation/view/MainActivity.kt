@@ -38,15 +38,13 @@ class MainActivity : AppCompatActivity() {
 
         sharedPreferencesHelper = SharedPreferencesHelper()
 
-        if (sharedPreferencesHelper.getIsRealtime(this)) {
-            GpsUtils(this).turnGPSOn(object : GpsUtils.OnGpsListener {
-                override fun gpsStatus(isGPSEnable: Boolean) {
-                    this@MainActivity.isGPSEnabled = isGPSEnable
-                }
-            })
-        } else {
-            //TODO: single location detection
-        }
+        GpsUtils(this).turnGPSOn(object : GpsUtils.OnGpsListener {
+            override fun gpsStatus(isGPSEnable: Boolean) {
+                this@MainActivity.isGPSEnabled = isGPSEnable
+            }
+        })
+
+
 
 
         viewModel.venusObservable.observe(this, Observer {

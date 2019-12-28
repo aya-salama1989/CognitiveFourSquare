@@ -14,17 +14,15 @@ class VenuesRepositoryImp : VenuesRepository {
         return venusRs.getVenues(longLat= longLat)
             .map { venusRs -> venusRs.response.groups.first() }
             .flatMapObservable { group ->
-                Observable.fromIterable(group.items.map { it.venue.toEntity("") })
+                Observable.fromIterable(group.items)}.flatMapSingle { item ->
+                venusRs.getVenuesPhoto(item.venue.id)
+                    .map {
+                        item.venue.toEntity(buildImageURL(it))
+                    }
+                    .onErrorReturn {
+                        item.venue.toEntity("")
+                    }
             }.toList()
-//            .flatMapSingle { item ->
-//                venusRs.getVenuesPhoto(item.venue.id)
-//                    .map {
-//                        item.venue.toEntity(buildImageURL(it))
-//                    }
-//                    .onErrorReturn {
-//                        item.venue.toEntity("")
-//                    }
-//            }.toList()
     }
 
     private fun buildImageURL(venueImageResponse: VenueImageResponse): String {
